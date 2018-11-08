@@ -11,7 +11,7 @@ RUN apt-get install -y curl
 RUN curl -sL https://deb.nodesource.com/setup_6.x | bash -
 
 # Install nginx, php-fpm and supervisord from ubuntu repository
-RUN apt-get install -y nginx php7.0-fpm php7.0-mbstring php7.0-mcrypt php7.0-mysql php7.0-zip supervisor nodejs build-essential && \
+RUN apt-get install -y nginx php7.0-common php7.0-fpm php7.0-mbstring php7.0-mcrypt php7.0-mysql php7.0-xml php7.0-zip supervisor nodejs build-essential && \
     rm -rf /var/lib/apt/lists/*
 
 # Enable PHP Extensions
