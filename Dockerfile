@@ -10,7 +10,7 @@ RUN apt-get install -y nginx php7.0-fpm php7.0-mcrypt php7.0-pdo_mysql php7.0-zi
 
 # Install Node.js
 RUN curl -sL https://deb.nodesource.com/setup_6.x | bash -
-    apt-get install -y nodejs build-essential npm
+RUN apt-get install -y nodejs build-essential npm
 
 # Define the ENV variable
 ENV nginx_vhost /etc/nginx/sites-available/default
