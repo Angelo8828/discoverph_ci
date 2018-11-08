@@ -4,13 +4,19 @@ FROM ubuntu:16.04
 # Update Ubuntu Software repository
 RUN apt-get update
 
+# Install cURL
+RUN apt-get install -y curl
+
+# Get certificate for Node.js v6.*
+RUN curl -sL https://deb.nodesource.com/setup_6.x | bash -
+
 # Install nginx, php-fpm and supervisord from ubuntu repository
-RUN apt-get install -y nginx php7.0-fpm php7.0-mcrypt php7.0-pdo_mysql php7.0-zip curl supervisor && \
+RUN apt-get install -y nginx php7.0-fpm php7.0-mcrypt php7.0-mysql php7.0-zip supervisor nodejs build-essential && \
     rm -rf /var/lib/apt/lists/*
 
-# Install Node.js
-RUN curl -sL https://deb.nodesource.com/setup_6.x | bash -
-RUN apt-get install -y nodejs build-essential npm
+# Enable PHP Extensions
+RUN phpenmod pdo_mysql
+RUN phpenmod mcrypt
 
 # Define the ENV variable
 ENV nginx_vhost /etc/nginx/sites-available/default
