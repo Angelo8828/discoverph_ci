@@ -37,10 +37,6 @@ RUN mkdir -p /run/php && \
     chown -R www-data:www-data /var/www/html && \
     chown -R www-data:www-data /run/php
 
-# Restart Nginx & PHP-FPM
-RUN service nginx restart
-RUN service php7.0-fpm restart
-
 # Volume configuration
 VOLUME ["/etc/nginx/sites-enabled", "/etc/nginx/certs", "/etc/nginx/conf.d", "/var/log/nginx", "/var/www/html"]
 
