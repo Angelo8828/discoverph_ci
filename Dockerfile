@@ -29,12 +29,17 @@ COPY default ${nginx_vhost}
 RUN sed -i -e 's/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g' ${php_conf} && \
     echo "\ndaemon off;" >> ${nginx_conf}
 
-#Copy supervisor configuration
+# Copy supervisor configuration
 COPY supervisord.conf ${supervisor_conf}
 
+# Changed ownership of /var/www/html
 RUN mkdir -p /run/php && \
     chown -R www-data:www-data /var/www/html && \
     chown -R www-data:www-data /run/php
+
+# Restart Nginx & PHP-FPM
+RUN service nginx restart
+RUN service php7.0-fpm restart
 
 # Volume configuration
 VOLUME ["/etc/nginx/sites-enabled", "/etc/nginx/certs", "/etc/nginx/conf.d", "/var/log/nginx", "/var/www/html"]
