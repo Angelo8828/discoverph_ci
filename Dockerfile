@@ -1,5 +1,5 @@
 # Download base image ubuntu 16.04
-FROM ubuntu:16.04
+FROM alpine
 
 # Update Ubuntu Software repository
 RUN apt-get update
