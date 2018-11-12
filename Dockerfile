@@ -12,6 +12,9 @@ RUN curl -sL https://deb.nodesource.com/setup_6.x | bash -
 
 # Install nginx, php-fpm and supervisord from ubuntu repository
 RUN apt-get install -y --force-yes \
+    git \
+    libmcrypt-dev \
+    zlib1g-dev \
     nginx \
     php7.0-common \
     php7.0-cli \
@@ -45,6 +48,9 @@ RUN sed -i -e 's/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g' ${php_conf} && \
 # Copy supervisor configuration
 COPY supervisord.conf ${supervisor_conf}
 
+# Install Gulp and Bower
+RUN npm install -g gulp bower
+
 # Changed ownership of /var/www/html
 RUN mkdir -p /run/php && \
     chown -R www-data:www-data /var/www/html && \
@@ -56,5 +62,4 @@ VOLUME ["/etc/nginx/sites-enabled", "/etc/nginx/certs", "/etc/nginx/conf.d", "/v
 # Configure Services and Port
 COPY start.sh /start.sh
 CMD ["./start.sh"]
-
 EXPOSE 80 443
