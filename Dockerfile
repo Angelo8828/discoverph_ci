@@ -46,6 +46,21 @@ RUN sed -i -e 's/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g' ${php_conf} && \
 # Install Gulp and Bower
 RUN npm install -g gulp bower
 
+# Install composer
+RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+RUN php composer-setup.php
+RUN rm composer-setup.php
+
+# Move composer to /usr/local/bin
+RUN mv composer.phar /usr/local/bin/composer
+
+# Install dependencies globally for fast installation in local project
+RUN composer global require laravel/framework "5.3.*"
+RUN composer global require laravel/socialite "^2.0"
+RUN composer global require laravel/scout "^1.1"
+RUN composer global require laravelcollective/html "^5.3.0"
+RUN composer global require phpunit/phpunit "5.3.*"
+
 # Changed ownership of /var/www/html
 RUN mkdir -p /run/php && \
     chown -R www-data:www-data /var/www/html && \
