@@ -54,6 +54,13 @@ RUN rm composer-setup.php
 # Move composer to /usr/local/bin
 RUN mv composer.phar /usr/local/bin/composer
 
+# Install dependencies globally for fast installation in local project
+RUN composer global require laravel/framework "5.3.*"
+RUN composer global require laravel/socialite "^2.0"
+RUN composer global require laravel/scout "^1.1"
+RUN composer global require laravelcollective/html "^5.3.0"
+RUN composer global require phpunit/phpunit "5.3.*"
+
 # Changed ownership of /var/www/html
 RUN mkdir -p /run/php && \
     chown -R www-data:www-data /var/www/html && \
