@@ -13,6 +13,7 @@ RUN curl -sL https://deb.nodesource.com/setup_6.x | bash -
 # Install nginx, php-fpm and nodejs from ubuntu repository
 RUN apt-get install -y --force-yes \
     git \
+    unzip \
     libmcrypt-dev \
     zlib1g-dev \
     nginx \
