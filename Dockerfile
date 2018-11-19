@@ -13,6 +13,7 @@ RUN curl -sL https://deb.nodesource.com/setup_6.x | bash -
 # Install nginx, php-fpm and nodejs from ubuntu repository
 RUN apt-get install -y --force-yes \
     git \
+    unzip \
     libmcrypt-dev \
     zlib1g-dev \
     nginx \
@@ -57,9 +58,19 @@ RUN mv composer.phar /usr/local/bin/composer
 # Install dependencies globally for fast installation in local project
 RUN composer global require laravel/framework "5.3.*"
 RUN composer global require laravel/socialite "^2.0"
+RUN composer global require laravel/passport "~1.0"
 RUN composer global require laravel/scout "^1.1"
 RUN composer global require laravelcollective/html "^5.3.0"
+RUN composer global require league/glide "^1.0"
+RUN composer global require league/flysystem-aws-s3-v3 "~1.0"
+RUN composer global require predis/predis "^1.0"
+RUN composer global require symfony/css-selector "3.1.*"
+RUN composer global require symfony/dom-crawler "3.1.*"
+RUN composer global require php-vfs/php-vfs "*@stable"
+RUN composer global require barryvdh/laravel-debugbar "^2.2"
 RUN composer global require phpunit/phpunit "5.3.*"
+RUN composer global require fzaninotto/faker "~1.4"
+RUN composer global require mockery/mockery "0.9.*"
 
 # Changed ownership of /var/www/html
 RUN mkdir -p /run/php && \
