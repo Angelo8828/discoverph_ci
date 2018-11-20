@@ -64,13 +64,18 @@ RUN composer global require laravelcollective/html "^5.3.0"
 RUN composer global require league/glide "^1.0"
 RUN composer global require league/flysystem-aws-s3-v3 "~1.0"
 RUN composer global require predis/predis "^1.0"
+RUN composer global require pda/pheanstalk "~3.0"
+RUN composer global require guzzlehttp/guzzle "~5.3|~6.0"
 RUN composer global require symfony/css-selector "3.1.*"
 RUN composer global require symfony/dom-crawler "3.1.*"
 RUN composer global require php-vfs/php-vfs "*@stable"
+RUN composer global require urodoz/truncate-html "^1.0"
+RUN composer global require mattketmo/email-checker "^1.5"
 RUN composer global require barryvdh/laravel-debugbar "^2.2"
 RUN composer global require phpunit/phpunit "5.3.*"
 RUN composer global require fzaninotto/faker "~1.4"
 RUN composer global require mockery/mockery "0.9.*"
+RUN composer global require phploc/phploc "*"
 
 # Changed ownership of /var/www/html
 RUN mkdir -p /run/php && \
