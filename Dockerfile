@@ -46,6 +46,9 @@ RUN sed -i -e 's/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g' ${php_conf} && \
 
 # Install Gulp and Bower
 RUN npm install -g gulp bower
+RUN cd $(npm root -g)/npm && \
+    npm install fs-extra && \
+    sed -i -e s/graceful-fs/fs-extra/ -e s/fs.rename/fs.move/ ./lib/utils/rename.js
 
 # Install composer
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
