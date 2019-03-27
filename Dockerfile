@@ -12,6 +12,7 @@ RUN curl -sL https://deb.nodesource.com/setup_6.x | bash -
 
 # Install nginx, php-fpm and nodejs from ubuntu repository
 RUN apt-get install -y --force-yes \
+    wget \
     git \
     unzip \
     libmcrypt-dev \
@@ -46,6 +47,9 @@ RUN sed -i -e 's/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g' ${php_conf} && \
 
 # Install Gulp and Bower
 RUN npm install -g gulp bower
+RUN cd $(npm root -g)/npm && \
+    npm install fs-extra && \
+    sed -i -e s/graceful-fs/fs-extra/ -e s/fs.rename/fs.move/ ./lib/utils/rename.js
 
 # Install composer
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
@@ -64,13 +68,18 @@ RUN composer global require laravelcollective/html "^5.3.0"
 RUN composer global require league/glide "^1.0"
 RUN composer global require league/flysystem-aws-s3-v3 "~1.0"
 RUN composer global require predis/predis "^1.0"
+RUN composer global require pda/pheanstalk "~3.0"
+RUN composer global require guzzlehttp/guzzle "~5.3|~6.0"
 RUN composer global require symfony/css-selector "3.1.*"
 RUN composer global require symfony/dom-crawler "3.1.*"
 RUN composer global require php-vfs/php-vfs "*@stable"
+RUN composer global require urodoz/truncate-html "^1.0"
+RUN composer global require mattketmo/email-checker "^1.5"
 RUN composer global require barryvdh/laravel-debugbar "^2.2"
 RUN composer global require phpunit/phpunit "5.3.*"
 RUN composer global require fzaninotto/faker "~1.4"
 RUN composer global require mockery/mockery "0.9.*"
+RUN composer global require phploc/phploc "*"
 
 # Changed ownership of /var/www/html
 RUN mkdir -p /run/php && \
